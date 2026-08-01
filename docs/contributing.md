@@ -15,4 +15,3 @@ docs(git): explain release workflow
 Pull requests must explain the problem, solution, testing, security or migration
 impact, documentation impact, and breaking changes. At least one approval,
 successful required checks, and resolved review conversations are required.
-

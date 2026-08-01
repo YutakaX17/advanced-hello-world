@@ -5,13 +5,13 @@ PostgreSQL learning application.
 
 ## Repository family
 
-| Repository | Role |
-| --- | --- |
-| `advanced-hello-world-be-core` | Reusable Django message API package |
-| `advanced-hello-world-be` | Deployable Django assembler |
-| `advanced-hello-world-fe-core` | Reusable React TypeScript UI package |
-| `advanced-hello-world-fe` | Deployable React assembler |
-| `advanced-hello-world` | Docker Compose distribution and end-to-end tests |
+| Repository                     | Role                                             |
+| ------------------------------ | ------------------------------------------------ |
+| `advanced-hello-world-be-core` | Reusable Django message API package              |
+| `advanced-hello-world-be`      | Deployable Django assembler                      |
+| `advanced-hello-world-fe-core` | Reusable React TypeScript UI package             |
+| `advanced-hello-world-fe`      | Deployable React assembler                       |
+| `advanced-hello-world`         | Docker Compose distribution and end-to-end tests |
 
 ## Run
 
@@ -34,3 +34,13 @@ Add `--volumes` only when you intentionally want to delete saved PostgreSQL data
 See [`docs/user-guide.md`](docs/user-guide.md) and
 [`docs/developer-guide.md`](docs/developer-guide.md) for detailed guidance.
 
+Additional references:
+
+- [`docs/architecture.md`](docs/architecture.md)
+- [`docs/configuration.md`](docs/configuration.md)
+- [`docs/operations.md`](docs/operations.md)
+- [`docs/release-guide.md`](docs/release-guide.md)
+- [`docs/ci-cd-guide.md`](docs/ci-cd-guide.md)
+- [`docs/maintenance.md`](docs/maintenance.md)
+- [`docs/troubleshooting.md`](docs/troubleshooting.md)
+- [`versions.yml`](versions.yml)

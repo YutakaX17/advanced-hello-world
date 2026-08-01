@@ -19,4 +19,3 @@ investigate API failures.
 Messages remain in the named `database` volume across ordinary restarts.
 Back up the database before upgrades. `docker compose down --volumes`
 permanently removes local application data and should be used deliberately.
-

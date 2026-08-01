@@ -38,4 +38,3 @@ Vite proxies `/api` to the Django server on port 8000.
 - Reusable components and API client changes belong in the frontend core.
 - Application assembly and Nginx changes belong in the frontend assembler.
 - Cross-component deployment and end-to-end tests belong here.
-
