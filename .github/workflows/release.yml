@@ -15,8 +15,9 @@ jobs:
       - name: Build release bundle
         run: |
           mkdir -p release/advanced-hello-world
-          cp compose.yml .env.example versions.yml README.md LICENSE release/advanced-hello-world/
+          cp compose.yml .env.example versions.yml README.md CHANGELOG.md LICENSE release/advanced-hello-world/
           cp -R docs release/advanced-hello-world/
+          cp -R scripts release/advanced-hello-world/
           tar -C release -czf release/advanced-hello-world-${GITHUB_REF_NAME}.tar.gz advanced-hello-world
       - uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0
         with:
