@@ -9,8 +9,9 @@ deployable applications, and an all-in-one distribution.
 
 ## Decision
 
-Maintain backend core, backend assembler, frontend core, frontend assembler, and
-distribution as separate repositories with one-way dependencies.
+Maintain backend core, backend feature modules, backend assembler, frontend
+core, frontend feature modules, frontend assembler, and distribution as
+separate repositories with one-way dependencies.
 
 ## Consequences
 

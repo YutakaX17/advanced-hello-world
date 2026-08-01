@@ -11,11 +11,12 @@
 
 ## Change ownership
 
-Domain models and API behavior belong to the backend core. Django assembly and
-runtime configuration belong to the backend assembler. Reusable UI and API
-client behavior belong to the frontend core. Browser assembly and web-server
-configuration belong to the frontend assembler. Cross-component deployment,
-compatibility, operations, and end-to-end tests belong to the distribution.
+Shared contracts belong to the core repositories. Domain models and API
+behavior belong to backend feature modules; feature UI and API clients belong
+to frontend feature modules. Runtime configuration and generated registration
+belong to the assemblers. Cross-component deployment, compatibility,
+operations, workspace bootstrap, and end-to-end tests belong to the
+distribution.
 
 ## Triage
 

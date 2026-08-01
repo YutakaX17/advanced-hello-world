@@ -16,26 +16,27 @@ Browser -> Nginx frontend -> Django REST API -> PostgreSQL
 
 ## Repository boundaries
 
-The backend and frontend each use a reusable core plus a deployable assembler.
-The cores contain public application contracts and must never import from their
-assemblers. Assemblers select versions, provide runtime configuration, and
-produce images. The distribution consumes published images and owns cross-stack
-tests.
+The backend and frontend each use a reusable core, independently versioned
+feature modules, and a deployable assembler. Cores contain public contracts and
+must never import features or assemblers. Assemblers select exact versions,
+install modules, provide runtime configuration, and produce images.
 
-| Repository         | Owns                                                      | Must not own                      |
-| ------------------ | --------------------------------------------------------- | --------------------------------- |
-| Backend core       | Message model, migrations, serializers, API views         | Deployment settings or containers |
-| Backend assembler  | Django settings, root URLs, Gunicorn, backend image       | Reusable UI or Compose            |
-| Frontend core      | Shell, form, API client, notification behavior            | Nginx or deployment configuration |
-| Frontend assembler | Browser entry point, Vite, Nginx, frontend image          | Database behavior                 |
-| Distribution       | Compose, compatibility versions, E2E tests, operator docs | Feature implementation            |
+| Repository         | Owns                                                         | Must not own                      |
+| ------------------ | ------------------------------------------------------------ | --------------------------------- |
+| Backend core       | Module contract, health endpoints, historical migrations     | Feature behavior or containers    |
+| Backend messages   | Message model, state adoption, serializers, and API views     | Project settings or deployment    |
+| Backend assembler  | Manifest installer, Django registration, Gunicorn, image      | Feature implementation            |
+| Frontend core      | Shell, layout, typed module and factory contracts             | Feature pages or Nginx             |
+| Frontend messages  | Message page, API client, styles, and notification behavior   | Browser entry point or deployment |
+| Frontend assembler | Manifest installer, generated routes, Vite, Nginx, image      | Database behavior                 |
+| Distribution       | Bootstrap, Compose, compatibility, E2E tests, operator docs   | Feature implementation            |
 
 ## Dependency rules
 
-Dependencies point from core to assembler to distribution. Release builds use
-tagged core packages and versioned images. `versions.yml` is the compatibility
-record for a distribution release. Development overrides may follow `main`, but
-release Compose files must not.
+Feature modules depend on core contracts; assemblers select core and feature
+versions; the distribution selects assembler images. Backend and frontend
+`modules.json` files are authoritative within their stacks, while
+`versions.yml` records the tested cross-stack combination.
 
 ## API contract
 

@@ -6,13 +6,15 @@ the REST API, persist it in PostgreSQL, and receive SweetAlert2 confirmation.
 
 ## Repository family
 
-| Repository                                                                 | Responsibility                                                            |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| [Backend core](https://github.com/YutakaX17/advanced-hello-world-be-core)  | Reusable model, migration, serializer, API, validation, and health checks |
-| [Backend assembler](https://github.com/YutakaX17/advanced-hello-world-be)  | Deployable Django project and backend image                               |
-| [Frontend core](https://github.com/YutakaX17/advanced-hello-world-fe-core) | Reusable React components, API client, styles, and alerts                 |
-| [Frontend assembler](https://github.com/YutakaX17/advanced-hello-world-fe) | Deployable Vite application and Nginx image                               |
-| [Distribution](https://github.com/YutakaX17/advanced-hello-world)          | Compose assembly, compatibility, operations, and end-to-end tests         |
+| Repository                                                                         | Responsibility                                                    |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [Backend core](https://github.com/YutakaX17/advanced-hello-world-be-core)          | Shared Django contracts, health endpoints, and migration history  |
+| [Backend messages](https://github.com/YutakaX17/advanced-hello-world-be-messages)  | Message model, validation, serialization, and REST API             |
+| [Backend assembler](https://github.com/YutakaX17/advanced-hello-world-be)          | Manifest-driven Django project and backend image                   |
+| [Frontend core](https://github.com/YutakaX17/advanced-hello-world-fe-core)         | Shared React shell, layout, and typed module contracts             |
+| [Frontend messages](https://github.com/YutakaX17/advanced-hello-world-fe-messages) | Message page, API client, feature styles, and confirmation         |
+| [Frontend assembler](https://github.com/YutakaX17/advanced-hello-world-fe)         | Generated module registration, Vite application, and Nginx image  |
+| [Distribution](https://github.com/YutakaX17/advanced-hello-world)                  | Workspace bootstrap, Compose, compatibility, docs, and E2E tests  |
 
 ```text
 Browser → Nginx :8080 → Django :8000 → PostgreSQL :5432
@@ -79,13 +81,27 @@ Clone all repositories as siblings:
 mkdir advanced-hello-world-workspace
 cd advanced-hello-world-workspace
 git clone https://github.com/YutakaX17/advanced-hello-world-be-core.git
+git clone https://github.com/YutakaX17/advanced-hello-world-be-messages.git
 git clone https://github.com/YutakaX17/advanced-hello-world-be.git
 git clone https://github.com/YutakaX17/advanced-hello-world-fe-core.git
+git clone https://github.com/YutakaX17/advanced-hello-world-fe-messages.git
 git clone https://github.com/YutakaX17/advanced-hello-world-fe.git
 git clone https://github.com/YutakaX17/advanced-hello-world.git
 cd advanced-hello-world
 cp .env.example .env
 ```
+
+Alternatively, clone only this distribution into an empty workspace and let the
+bootstrap command clone and install all selected repositories:
+
+```bash
+./scripts/bootstrap.sh
+```
+
+The command is safe to rerun: it reuses existing Git repositories, refuses to
+overwrite unrelated paths, creates the backend assembler's `.venv`, installs
+editable backend modules, builds frontend modules, generates typed frontend
+registration, and validates both manifests.
 
 The development Compose file is an override and must be used with the base
 file:
@@ -117,7 +133,8 @@ Requirements:
 - Node.js 22 and npm
 - PostgreSQL 17
 
-Clone the five sibling repositories using the commands above.
+Clone the seven sibling repositories using the commands above, or run
+`./scripts/bootstrap.sh`.
 
 Create the database and role:
 
@@ -133,8 +150,8 @@ cd advanced-hello-world-be
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e ../advanced-hello-world-be-core
 python -m pip install -e '.[dev]'
+python -m advanced_hello_world.module_installer modules.json --local-root ..
 
 export POSTGRES_HOST=localhost
 export POSTGRES_PORT=5432
@@ -152,11 +169,8 @@ python manage.py runserver
 In another terminal, install and start the frontend:
 
 ```bash
-cd advanced-hello-world-fe-core
-npm ci
-npm run build
-cd ../advanced-hello-world-fe
-npm ci
+cd advanced-hello-world-fe
+npm run modules:install -- --local-root ..
 npm run dev
 ```
 
