@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: ../advanced-hello-world-be
+      args:
+        CORE_SOURCE: git+https://github.com/YutakaX17/advanced-hello-world-be-core.git@main
+    image: advanced-hello-world-be:dev
+
+  migrate:
+    build:
+      context: ../advanced-hello-world-be
+      args:
+        CORE_SOURCE: git+https://github.com/YutakaX17/advanced-hello-world-be-core.git@main
+    image: advanced-hello-world-be:dev
+
+  frontend:
+    build:
+      context: ../advanced-hello-world-fe
+      args:
+        CORE_PACKAGE_SOURCE: github:YutakaX17/advanced-hello-world-fe-core#main
+    image: advanced-hello-world-fe:dev
+
