@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: bash -n scripts/bootstrap.sh
+      - run: shellcheck scripts/bootstrap.sh
       - run: cp .env.example .env
       - run: docker compose config --quiet
 
